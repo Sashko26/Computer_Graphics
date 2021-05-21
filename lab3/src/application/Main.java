@@ -246,7 +246,7 @@ public class Main extends Application {
 			  //переміщення по x
 			  TranslateTransition translateTransition = new
 			  TranslateTransition(Duration.millis(time), root);
-			  translateTransition.setFromX(150); 
+			  translateTransition.setFromX(350); 
 			  translateTransition.setToX(0);
 			  translateTransition.setCycleCount(cycleCount+1);
 			  translateTransition.setAutoReverse(true);

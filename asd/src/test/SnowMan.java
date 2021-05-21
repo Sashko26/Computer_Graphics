@@ -1,36 +1,12 @@
-package application;
-	
+package test;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.media.j3d.AmbientLight;
-import javax.media.j3d.Background;
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.DirectionalLight;
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
-import javax.swing.Timer;
-import javax.vecmath.Color3f;
-import javax.vecmath.Point3d;
-import javax.vecmath.Vector3f;
-
-import com.sun.j3d.utils.geometry.Cone;
-import com.sun.j3d.utils.geometry.Cylinder;
-import com.sun.j3d.utils.geometry.Sphere;
+import com.sun.j3d.utils.geometry.*;
 import com.sun.j3d.utils.universe.SimpleUniverse;
+import javax.media.j3d.*;
+import javax.swing.Timer;
+import javax.vecmath.*;
 
-/*
- * public class Main extends Application {
- * 
- * @Override public void start(Stage primaryStage) { try { BorderPane root = new
- * BorderPane(); Scene scene = new Scene(root,400,400);
- * scene.getStylesheets().add(getClass().getResource("application.css").
- * toExternalForm()); primaryStage.setScene(scene); primaryStage.show(); }
- * catch(Exception e) { e.printStackTrace(); } }
- * 
- * public static void main(String[] args) { launch(args); } }
- */
 public class SnowMan implements ActionListener {
     private TransformGroup carTransformGroup = new TransformGroup();
     private Transform3D carTransform3D = new Transform3D();
@@ -44,8 +20,10 @@ public class SnowMan implements ActionListener {
     private SnowMan() {
         timer = new Timer(50, this);
         timer.start();
+        // cтворення групи обэктів branch Group
         BranchGroup scene = createSceneGraph();
         SimpleUniverse u = new SimpleUniverse();
+        //встановлення точки перегляду
         u.getViewingPlatform().setNominalViewingTransform();
         u.addBranchGraph(scene);
     }
@@ -57,23 +35,33 @@ public class SnowMan implements ActionListener {
         carTransformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         buildCastleSkeleton();
         objRoot.addChild(carTransformGroup);
-
-        Background background = new Background(new Color3f(1.0f, 1.0f, 1.0f));
+        // встановлення кольору заднього фону
+		 Background background = new Background(new Color3f(.0f, 1.0f, 1.0f)); 
+        // вказуємо сферу внутрішній простір, якої буде освітлено
         BoundingSphere sphere = new BoundingSphere(new Point3d(0,0,0), 100000);
-        background.setApplicationBounds(sphere);
-        objRoot.addChild(background);
-
+		background.setApplicationBounds(sphere); 
+		objRoot.addChild(background); 
+        // вказуємо сферу внутрішній простір, якої буде освітлено
         BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),100.0);
-        Color3f light1Color = new Color3f(1.0f, 0.5f, 0.4f);
+        
+        Color3f light1Color = new Color3f(1.0f, 0.5f, 0.4f); 
+        //визначаэмо напрям поширення світла
         Vector3f light1Direction = new Vector3f(.8f, .8f, .0f);
+       // власне обэкт освітлення
         DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
+        
+       // встановлення того, яка частина сфери має бути освітлена
         light1.setInfluencingBounds(bounds);
         objRoot.addChild(light1);
 
-        Color3f ambientColor = new Color3f(1.0f, 1.0f, 1.0f);
-        AmbientLight ambientLightNode = new AmbientLight(ambientColor);
-        ambientLightNode.setInfluencingBounds(bounds);
-        objRoot.addChild(ambientLightNode);
+        
+        
+		
+		  Color3f ambientColor = new Color3f(1.0f, 1.0f, 1.0f); AmbientLight
+		  ambientLightNode = new AmbientLight(ambientColor);
+		  ambientLightNode.setInfluencingBounds(bounds);
+		  objRoot.addChild(ambientLightNode);
+		 
         return objRoot;
     }
 
@@ -110,22 +98,27 @@ public class SnowMan implements ActionListener {
         body4TG.addChild(body4);
         carTransformGroup.addChild(body4TG);
 
-        Cylinder body5 = SnowManBody.getHat(.1f, .2f);
-        Transform3D body5T = new Transform3D();
-        body5T.setTranslation(new Vector3f(.0f, .60f, .0f));
-        TransformGroup body5TG = new TransformGroup();
-        body5TG.setTransform(body5T);
-        body5TG.addChild(body5);
-        carTransformGroup.addChild(body5TG);
+		
+		 Cylinder body5 = SnowManBody.getHat(.1f, .2f);
+		 Transform3D body5T = new Transform3D();
+		 body5T.setTranslation(new Vector3f(.0f, .60f, .0f));
+		 TransformGroup body5TG = new TransformGroup();
+		 body5TG.setTransform(body5T);
+		 body5TG.addChild(body5);
+		 carTransformGroup.addChild(body5TG);
+		 
 
-        Cone body6 = SnowManBody.getCarrot(0.05f, 0.2f);
-        Transform3D body6T = new Transform3D();
-        body6T.rotX(Math.PI/2);
-        body6T.setTranslation(new Vector3f(.0f, .3f, .25f));
-        TransformGroup body6TG = new TransformGroup();
-        body6TG.setTransform(body6T);
-        body6TG.addChild(body6);
-        carTransformGroup.addChild(body6TG);
+		
+		 Cone body6 = SnowManBody.getCarrot(0.05f, 0.2f); 
+		 Transform3D body6T = new Transform3D(); 
+		 body6T.rotX(Math.PI/2); 
+		 body6T.setTranslation(new
+		 Vector3f(.0f, .3f, .25f)); 
+		 TransformGroup body6TG = new TransformGroup();
+		 body6TG.setTransform(body6T);
+		 body6TG.addChild(body6);
+		 carTransformGroup.addChild(body6TG);
+		 
 
         createButton(.0f, -.1f, .21f);
         createButton(.0f, .0f, .23f);

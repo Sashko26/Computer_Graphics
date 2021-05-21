@@ -1,4 +1,4 @@
-
+package test;
 import java.awt.Container;
 import javax.media.j3d.*; // for transform
 import javax.vecmath.Color3f;
@@ -101,7 +101,7 @@ public class SnowManBody {
     }
 
     private static Appearance getButtonAppearence() {
-        TextureLoader loader = new TextureLoader("source_folder\\button.jpg", "LUMINANCE", new
+        TextureLoader loader = new TextureLoader("source_folder\\sharingan.jpg", "LUMINANCE", new
                 Container());
 
         Texture texture = loader.getTexture();
@@ -117,10 +117,12 @@ public class SnowManBody {
         ap.setTextureAttributes(texAttr);
 
         Color3f emissive = new Color3f(new Color(0,0, 0));
-        Color3f ambient = new Color3f(new Color(0,0, 00));
-        Color3f diffuse = new Color3f();
+        Color3f ambient = new Color3f(new Color(200,100, 100));
+        Color3f diffuse = new Color3f(Color.red);
         Color3f specular = new Color3f(new Color(0,0, 0));
         ap.setMaterial(new Material(ambient, emissive, diffuse, specular, 1.0f));
+
+
         return ap;
     }
 }
